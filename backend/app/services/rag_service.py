@@ -1,4 +1,3 @@
-"""RAG service - Wrapper for RAG engine with singleton pattern"""
 from app.core.rag_engine import RAGEngine
 from app.config.settings import settings
 
@@ -16,9 +15,11 @@ class RAGService:
                 groq_api_key=settings.GROQ_API_KEY,
                 model_name=settings.GROQ_MODEL,
                 collection_name=settings.CHROMA_COLLECTION_NAME,
-                persist_dir=settings.CHROMA_PERSIST_DIR,
                 chunk_size=settings.CHUNK_SIZE,
-                chunk_overlap=settings.CHUNK_OVERLAP
+                chunk_overlap=settings.CHUNK_OVERLAP,
+                cloud_api_key=settings.CHROMA_API_KEY,
+                cloud_tenant=settings.CHROMA_TENANT,
+                cloud_database=settings.CHROMA_DATABASE,
             )
         return cls._instance
     

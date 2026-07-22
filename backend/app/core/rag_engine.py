@@ -1,3 +1,4 @@
+import os 
 from typing import Dict, AsyncGenerator
 from app.core.embeddings import create_embeddings
 from app.core.vector_store import VectorStore
@@ -6,7 +7,6 @@ from app.core.document_loader import load_document
 from app.core.text_processor import TextProcessor
 from app.core.query_engine import QueryEngine
 
-
 class RAGEngine:
     """Main RAG Engine that coordinates all components"""
     
@@ -14,10 +14,12 @@ class RAGEngine:
         self,
         groq_api_key: str,
         model_name: str = "llama-3.1-70b-versatile",
-        collection_name: str = "documents",
-        persist_dir: str = "./chroma_db",
+        collection_name: str = "RAGGG",
+        cloud_api_key: str = os.getenv("CHROMA_API_KEY"),
+        cloud_tenant: str = os.getenv("CHROMA_TENANT"),
+        cloud_database: str = os.getenv("CHROMA_DATABASE"),
         chunk_size: int = 1000,
-        chunk_overlap: int = 200
+        chunk_overlap: int = 200,
     ):
         """
         Initialize RAG Engine
@@ -39,8 +41,10 @@ class RAGEngine:
         self.embeddings = create_embeddings()
         self.vector_store = VectorStore(
             embeddings=self.embeddings,
-            collection_name="documents",
-           persist_dir=persist_dir
+            collection_name=collection_name,
+            cloud_api_key=cloud_api_key,
+            cloud_tenant=cloud_tenant,
+            cloud_database=cloud_database,
         )
         self.llm = create_llm(groq_api_key, model_name)
         self.text_processor = TextProcessor(chunk_size, chunk_overlap)

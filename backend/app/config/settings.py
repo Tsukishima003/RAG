@@ -1,8 +1,10 @@
 import os
+from dotenv import load_dotenv
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field, model_validator
 
+load_dotenv()
 
 class Settings(BaseSettings):
     # API Info
@@ -24,7 +26,9 @@ class Settings(BaseSettings):
     GROQ_MODEL: str = "llama-3.3-70b-versatile"
 
     # ChromaDB
-    CHROMA_PERSIST_DIR: str = "./chroma_db"
+    CHROMA_API_KEY: str = os.getenv("CHROMA_API_KEY", "")
+    CHROMA_TENANT: str = os.getenv("CHROMA_TENANT", "")
+    CHROMA_DATABASE: str = os.getenv("CHROMA_DATABASE", "")
     CHROMA_COLLECTION_NAME: str = "documents"
 
     # Document Processing
