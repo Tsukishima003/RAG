@@ -19,7 +19,7 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
 
     # CORS
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000"]
+    ALLOWED_ORIGINS: list[str] = ["http://localhost:3000" , "https://rag-6jhw.vercel.app" ]
 
     # Groq AI
     GROQ_API_KEY: str
