@@ -82,7 +82,7 @@ export function Sidebar({
     const interval = setInterval(async () => {
       try {
         const res = await fetch(
-          `http://localhost:8000/documents/status/${encodeURIComponent(filename)}`
+          `${process.env.NEXT_PUBLIC_API_URL}/documents/status/${encodeURIComponent(filename)}`
         )
         const data = await res.json()
 
