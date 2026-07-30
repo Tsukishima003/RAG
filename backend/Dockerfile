@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN python -m venv $VENV_PATH
 
 COPY requirements.txt .
-RUN uv pip install --python $VENV_PATH/bin/python -r requirements.txt
+RUN uv pip install --python $VENV_PATH/bin/python --prerelease=allow  -r requirements.txt
 
 FROM python:3.11-slim AS runtime
 
